@@ -14,7 +14,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 
+// Developed by Jake Zimmerman and Zach Thelen
+
+
+
 class MainActivity : AppCompatActivity() {
+
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
