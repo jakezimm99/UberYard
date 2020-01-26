@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "466602631461",
+    "firebase_url": "https://uber-yard.firebaseio.com",
+    "project_id": "uber-yard",
+    "storage_bucket": "uber-yard.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466602631461:android:6185bef05851098c86facc",
+        "android_client_info": {
+          "package_name": "edu.rosehulman.uberyard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "466602631461-la8b4ra3ntf80jrpg6bja0fdbiuecj6r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.rosehulman.uberyard",
+            "certificate_hash": "bf46bff664b7ebc9ba1649ececcd9e097b1b07fd"
+          }
+        },
+        {
+          "client_id": "466602631461-a122sjmtphfgih9igc1po0dg68457l3d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDY--N5ocrDfez_Xiq6HDI8HmJuGxquTNw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "466602631461-a122sjmtphfgih9igc1po0dg68457l3d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
