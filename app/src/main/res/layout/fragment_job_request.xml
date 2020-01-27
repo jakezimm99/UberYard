@@ -4,10 +4,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/job_address_title"
+        android:text="@string/address"
+        android:gravity="bottom"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_alignBottom="@id/job_address"
+        />
+
 <EditText
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/job_address"
+    android:layout_toRightOf="@id/job_address_title"
     android:hint="@string/enter_job_address"
+
     />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/job_type_title"
+        android:layout_alignBottom="@id/job_type"
+        android:textStyle="bold"
+        android:gravity="bottom"
+        android:text="@string/job_type"/>
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/job_type"
+        android:layout_below="@id/job_address"
+        android:layout_toRightOf="@id/job_type_title"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/requested_completion_title"
+        android:text="@string/requested_completion_date"
+        android:layout_below="@id/job_type"
+        android:gravity="bottom"
+        android:textStyle="bold"
+        android:layout_alignBottom="@id/requested_completion"
+        />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_a_date"
+        android:id="@+id/requested_completion"
+        android:onClick="@id/calendar"
+        android:layout_below="@id/job_type"
+        android:layout_toRightOf="@id/requested_completion_title"
+        />
+
+   <DatePicker
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:datePickerMode="spinner"
+       android:calendarViewShown="false"
+       android:id="@+id/calendar"
+       android:visibility="invisible"
+       android:layout_below="@id/requested_completion"
+       />
 </RelativeLayout>
