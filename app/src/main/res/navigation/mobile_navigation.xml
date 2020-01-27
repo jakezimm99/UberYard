@@ -6,22 +6,28 @@
     app:startDestination="@+id/nav_home">
 
     <fragment
+        android:id="@+id/nav_login"
+        android:name="edu.rosehulman.uberyard.ui.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login"/>
+
+    <fragment
         android:id="@+id/nav_home"
         android:name="edu.rosehulman.uberyard.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_job_request"
         android:name="edu.rosehulman.uberyard.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="Job Request"
         tools:layout="@layout/fragment_job_request" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_job_history"
         android:name="edu.rosehulman.uberyard.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:label="Job History"
+        tools:layout="@layout/fragment_job_history" />
 
     <fragment
         android:id="@+id/nav_tools"

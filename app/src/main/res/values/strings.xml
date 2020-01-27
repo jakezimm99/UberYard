@@ -22,4 +22,5 @@
     <string name="requested_completion_date">Requested Completion Date:</string>
     <string name="enter_a_date">Enter a date...</string>
     <string name="job_type">Job Type</string>
+    <string name="job_request">Job Request</string>
 </resources>
