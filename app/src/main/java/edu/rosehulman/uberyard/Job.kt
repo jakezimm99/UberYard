@@ -14,9 +14,9 @@ import java.util.*
 data class Job(
     val username: String = "",
     val contractor: String = "",
-    val requestedCompletion: Date = Calendar.getInstance().time,
+    val requestedCompletion: String = Calendar.getInstance().time.toString(),
     val jobType: String = "",
-    val total: Int = 0
+    val total: Double = 0.00
 ) : Parcelable {
 
 }
