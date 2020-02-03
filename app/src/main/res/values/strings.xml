@@ -23,4 +23,5 @@
     <string name="enter_a_date">Enter a date...</string>
     <string name="job_type">Job Type</string>
     <string name="job_request">Job Request</string>
+    <string name="request_job">Request Job</string>
 </resources>
