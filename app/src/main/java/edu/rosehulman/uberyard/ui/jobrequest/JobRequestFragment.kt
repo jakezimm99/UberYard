@@ -44,6 +44,7 @@ class JobRequestFragment : Fragment() {
         button.setOnClickListener {
             var username = "zimmerjm"
             var contractorName = "Unknown"
+            var jobAddress = root.job_address.text.toString()
             var formatter: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy"); // Make sure user insert date into edittext in this format.
 
 
@@ -68,9 +69,9 @@ class JobRequestFragment : Fragment() {
                 }
             }
 
-            val job = Job(username, contractorName, date, jobType, total)
+            val job = Job(username, contractorName,jobAddress,  date, jobType, total)
             jobsRef.add(job)
-            Log.d("Uber",jobsRef.add(job).isSuccessful.toString())
+            this.context
         }
 
 
