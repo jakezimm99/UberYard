@@ -7,7 +7,6 @@ import kotlinx.android.synthetic.main.job_item.view.*
 
 class JobViewHolder (itemView: View, adapter: JobListAdapter) : RecyclerView.ViewHolder(itemView) {
         val address = itemView.show_job_address
-    val username = itemView.username
     val completionDate = itemView.show_date
     val total = itemView.show_total
     val contractor = itemView.contractor
@@ -24,10 +23,9 @@ class JobViewHolder (itemView: View, adapter: JobListAdapter) : RecyclerView.Vie
 
     fun bind(job: Job) {
         address.text = job.jobAdress
-        username.text = job.username
-        contractor.text = job.contractor
-        completionDate.text = job.requestedCompletion
-        total.text = job.total.toString()
+        contractor.text = "Contractor: " + job.contractor
+        completionDate.text = "Complete By: " + job.requestedCompletion
+        total.text = "$" + job.total.toString() +"0"
         jobType.text = job.jobType
 
     }

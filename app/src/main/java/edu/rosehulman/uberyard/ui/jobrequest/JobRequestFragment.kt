@@ -21,7 +21,8 @@ import java.sql.Date
 import java.text.SimpleDateFormat
 
 class JobRequestFragment : Fragment() {
-    val list : Array<String> = arrayOf("Lawn Maintenence", "Tree Removal","Watering System Repairs" , "Other")
+    val list: Array<String> =
+        arrayOf("Lawn Maintenence", "Tree Removal", "Watering System Repairs", "Other")
 
     var jobsRef = FirebaseFirestore
         .getInstance()
@@ -37,7 +38,8 @@ class JobRequestFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.fragment_job_request, container, false)
         val spinner = root.findViewById<Spinner>(R.id.job_type)
-        var adapter : ArrayAdapter<String> = ArrayAdapter(activity!!.applicationContext ,  android.R.layout.simple_spinner_item, list)
+        var adapter: ArrayAdapter<String> =
+            ArrayAdapter(activity!!.applicationContext, android.R.layout.simple_spinner_item, list)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
         val button = root.findViewById<Button>(R.id.request_job)
@@ -45,32 +47,37 @@ class JobRequestFragment : Fragment() {
             var username = "zimmerjm"
             var contractorName = "Unknown"
             var jobAddress = root.job_address.text.toString()
-            var formatter: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy"); // Make sure user insert date into edittext in this format.
+            var formatter: SimpleDateFormat =
+                SimpleDateFormat("dd/MM/yyyy"); // Make sure user insert date into edittext in this format.
 
 
-                var  dob_var=(root.requested_completion.getText().toString());
+            var dob_var = (root.requested_completion.getText().toString());
 
-                var dateObject : java.util.Date? = formatter.parse(dob_var);
+            var dateObject: java.util.Date? = formatter.parse(dob_var);
 
-                val date = SimpleDateFormat("dd/MM/yyyy").format(dateObject);
+            val date = SimpleDateFormat("dd/MM/yyyy").format(dateObject);
             var jobType = root.job_type.selectedItem.toString()
             var total = 0.00
-            when(jobType) {
+            when (jobType) {
                 ("Lawn Maintenence") -> {
                     total = 35.00
                 }
                 ("Tree Removal") -> {
                     total = 55.00
-                } ("Watering System Repairs") -> {
-                total = 100.00
-            }
+                }
+                ("Watering System Repairs") -> {
+                    total = 100.00
+                }
                 else -> {
                     total = 50.00
                 }
             }
 
-            val job = Job(username, contractorName,jobAddress,  date, jobType, total)
-            jobsRef.add(job)
+            val job = Job(username, contractorName, jobAddress, date, jobType, total)
+            jobsRef.add(job).addOnSuccessListener {
+                Log.d("Uber", "Added the job to zimmerjm")
+            }
+
             this.context
         }
 
