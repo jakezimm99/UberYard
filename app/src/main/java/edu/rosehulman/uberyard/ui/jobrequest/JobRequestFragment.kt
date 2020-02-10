@@ -72,7 +72,7 @@ class JobRequestFragment : Fragment() {
                     total = 50.00
                 }
             }
-
+            Log.d("Uber", "${jobsRef.path}")
             val job = Job(username, contractorName, jobAddress, date, jobType, total)
             jobsRef.add(job).addOnSuccessListener {
                 Log.d("Uber", "Added the job to zimmerjm")
