@@ -21,7 +21,7 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Job History" />
         <item
-            android:id="@+id/nav_tools"
+            android:id="@+id/nav_job_statuses"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/menu_tools" />
     </group>

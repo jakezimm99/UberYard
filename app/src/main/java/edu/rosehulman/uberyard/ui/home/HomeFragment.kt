@@ -17,12 +17,21 @@ import com.google.android.gms.maps.SupportMapFragment
 import edu.rosehulman.uberyard.R
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
+
+    var map : GoogleMap? =  null
     override fun onMapReady(map: GoogleMap?) {
-        val map = map
+        Log.d("Uber", "Here it is")
+        this.map = map
         map?.uiSettings?.isMyLocationButtonEnabled = true
         map?.isMyLocationEnabled = true
     }
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+//        var fragment = fragmentManager!!.findFragmentById(R.id.map) as MapView
+//        fragment.getMapAsync(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,4 +48,25 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         return root
     }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+    }
+
 }

@@ -30,10 +30,10 @@
         tools:layout="@layout/fragment_job_history" />
 
     <fragment
-        android:id="@+id/nav_tools"
-        android:name="edu.rosehulman.uberyard.ui.tools.ToolsFragment"
+        android:id="@+id/nav_job_statuses"
+        android:name="edu.rosehulman.uberyard.ui.jobstatuses.JobStatusesFragment"
         android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
+        tools:layout="@layout/fragment_job_statuses" />
 
     <fragment
         android:id="@+id/nav_share"

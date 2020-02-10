@@ -13,6 +13,7 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import androidx.appcompat.app.ActionBar
 import com.google.firebase.auth.FirebaseAuth
 
 // Developed by Jake Zimmerman and Zach Thelen
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_login, R.id.nav_home, R.id.nav_job_request, R.id.nav_job_history,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send
+                R.id.nav_job_statuses, R.id.nav_share, R.id.nav_send
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

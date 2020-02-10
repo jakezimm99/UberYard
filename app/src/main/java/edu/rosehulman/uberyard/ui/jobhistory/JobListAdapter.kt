@@ -31,7 +31,7 @@ class JobListAdapter(var context: Context) : RecyclerView.Adapter<JobViewHolder>
             .addSnapshotListener { snapshot: QuerySnapshot?, exception: FirebaseFirestoreException? ->
                 if (exception != null) {
 
-                    Log.e("Pic", "Error with pic listener $exception")
+                    Log.e("Uber", "Error with uber listener $exception")
                     return@addSnapshotListener
                 }
                 for (docChange in snapshot!!.documentChanges) {
@@ -62,7 +62,7 @@ class JobListAdapter(var context: Context) : RecyclerView.Adapter<JobViewHolder>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolder {
-val view = LayoutInflater.from(context).inflate(R.layout.job_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.job_item, parent, false)
         return JobViewHolder(view, this)
     }
 
