@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
@@ -45,7 +46,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         mapView.getMapAsync(this)
         Log.d("Uber", "Map is being created.")
-
         return root
     }
 

@@ -6,9 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
@@ -42,6 +40,35 @@ class JobRequestFragment : Fragment() {
             ArrayAdapter(activity!!.applicationContext, android.R.layout.simple_spinner_item, list)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selected = parent!!.getItemAtPosition(position).toString()
+                Log.d("Uber" , selected)
+                if(selected.equals(list[0])) {
+                    root.findViewById<TextView>(R.id.subtotal_amount).text = "$35.00"
+                    root.findViewById<TextView>(R.id.total_amount).text = "$40.00"
+                } else if (selected.equals(list[1])) {
+                    root.findViewById<TextView>(R.id.subtotal_amount).text = "$55.00"
+                    root.findViewById<TextView>(R.id.total_amount).text = "$60.00"
+                } else if (selected.equals(list[2])) {
+                    root.findViewById<TextView>(R.id.subtotal_amount).text = "$100.00"
+                    root.findViewById<TextView>(R.id.total_amount).text = "$105.00"
+                } else {
+                    root.findViewById<TextView>(R.id.subtotal_amount).text = "$50.00"
+                    root.findViewById<TextView>(R.id.total_amount).text = "$55.00"
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
+        
         val button = root.findViewById<Button>(R.id.request_job)
         button.setOnClickListener {
             var username = "zimmerjm"
