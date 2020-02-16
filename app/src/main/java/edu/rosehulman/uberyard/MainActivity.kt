@@ -1,9 +1,11 @@
 package edu.rosehulman.uberyard
 
 import android.Manifest
+import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.navigation.findNavController
@@ -16,7 +18,10 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AlertDialog
+import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import edu.rosehulman.uberyard.ui.home.HomeFragment
 import edu.rosehulman.uberyard.ui.login.LoginFragment
@@ -24,7 +29,29 @@ import edu.rosehulman.uberyard.ui.login.LoginFragment
 // Developed by Jake Zimmerman and Zach Thelen
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedListener {
+
+    private val RC_SIGN_IN = 1
+
+    override fun onLoginButtonPressed() {
+        launchLogin()
+    }
+
+    private fun launchLogin() {
+        val providers = arrayListOf(
+            AuthUI.IdpConfig.EmailBuilder().build(),
+            AuthUI.IdpConfig.PhoneBuilder().build(),
+            AuthUI.IdpConfig.GoogleBuilder().build()
+        )
+
+        startActivityForResult(
+            AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(providers)
+                .build(),
+            RC_SIGN_IN
+        )
+    }
 
     val auth = FirebaseAuth.getInstance()
     lateinit var authListener: FirebaseAuth.AuthStateListener
@@ -52,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_login, R.id.nav_home, R.id.nav_job_request, R.id.nav_job_history,
-                R.id.nav_job_statuses, R.id.nav_share, R.id.nav_send
+                R.id.nav_job_statuses, R.id.nav_settings, R.id.nav_billing
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -66,7 +93,6 @@ class MainActivity : AppCompatActivity() {
             Log.d("Uber", "$user")
             if (user != null) {
                 Log.d("Uber", "Main activity")
-                switchtoMain(user.uid)
             } else {
                 Log.d("Uber", "Log in activity")
                 navController.navigate(R.id.action_a_to_b)
@@ -106,23 +132,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun switchtoLoginFragment() {
-        val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.nav_host_fragment, LoginFragment())
-        ft.commit()
-    }
 
-    fun switchtoMain(uid: String) {
-        val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.nav_host_fragment, HomeFragment())
-        ft.commit()
-    }
+
+
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
+
+
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+
+            R.id.logout -> {
+                auth.signOut()
+                true
+            }
+
+
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -24,4 +24,6 @@
     <string name="job_type">Job Type</string>
     <string name="job_request">Job Request</string>
     <string name="request_job">Request Job</string>
+    <string name="settings">Settings</string>
+    <string name="billing">Billing</string>
 </resources>
