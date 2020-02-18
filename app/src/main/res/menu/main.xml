@@ -4,6 +4,14 @@
     tools:context="edu.rosehulman.uberyard.MainActivity">
 
     <item
+        android:id="@+id/nav_button"
+        android:icon="@drawable/ic_menu_black_24dp"
+        android:orderInCategory="50"
+        app:showAsAction="always"
+        android:title="Menu"
+        />
+
+    <item
         android:id="@+id/logout"
         android:orderInCategory="101"
         android:title="Logout"

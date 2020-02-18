@@ -23,10 +23,10 @@
         <item
             android:id="@+id/nav_job_statuses"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_tools" />
+            android:title="Job Statuses" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="User Information">
         <menu>
             <item
                 android:id="@+id/nav_settings"

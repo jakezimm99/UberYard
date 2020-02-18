@@ -35,6 +35,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         }
         map?.uiSettings?.isMyLocationButtonEnabled = true
 
+
     }
 
 
