@@ -28,7 +28,6 @@ class JobHistoryFragment(val userid : String) : Fragment() {
         val recyclerView =
             inflater.inflate(R.layout.fragment_job_history, container, false) as RecyclerView
         adapter = JobListAdapter(context!!, userid)
-        Log.d("Uber", "${adapter!!.jobs.size} ")
 
         recyclerView.adapter = adapter
 

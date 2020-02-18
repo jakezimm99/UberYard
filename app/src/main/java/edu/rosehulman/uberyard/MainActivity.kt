@@ -92,9 +92,15 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
             if (user != null) {
                 Log.d("Uber", "Main activity")
                 fragment = HomeFragment(user.uid)
+                val ft = supportFragmentManager.beginTransaction()
+                ft.replace(R.id.flContent, fragment)
+                ft.commit()
             } else {
                 Log.d("Uber", "Log in activity")
                 fragment = LoginFragment()
+                val ft = supportFragmentManager.beginTransaction()
+                ft.replace(R.id.flContent, fragment)
+                ft.commit()
             }
         }
 
