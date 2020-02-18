@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import edu.rosehulman.uberyard.R
 
-class JobStatusesFragment : Fragment() {
+class JobStatusesFragment(val userid: String) : Fragment() {
 
 
     override fun onCreateView(

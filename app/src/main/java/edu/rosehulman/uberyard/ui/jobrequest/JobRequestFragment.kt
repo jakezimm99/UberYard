@@ -18,13 +18,13 @@ import kotlinx.android.synthetic.main.fragment_job_request.view.*
 import java.sql.Date
 import java.text.SimpleDateFormat
 
-class JobRequestFragment : Fragment() {
+class JobRequestFragment(val userid: String) : Fragment() {
     val list: Array<String> =
         arrayOf("Lawn Maintenence", "Tree Removal", "Watering System Repairs", "Other")
 
     var jobsRef = FirebaseFirestore
         .getInstance()
-        .collection("users").document("zimmerjm")
+        .collection("users").document(userid)
         .collection("jobs")
 
 
@@ -71,7 +71,7 @@ class JobRequestFragment : Fragment() {
         
         val button = root.findViewById<Button>(R.id.request_job)
         button.setOnClickListener {
-            var username = "zimmerjm"
+            var username = userid
             var contractorName = "Unknown"
             var jobAddress = root.job_address.text.toString()
             var formatter: SimpleDateFormat =
@@ -102,7 +102,7 @@ class JobRequestFragment : Fragment() {
             Log.d("Uber", "${jobsRef.path}")
             val job = Job(username, contractorName, jobAddress, date, jobType, total)
             jobsRef.add(job).addOnSuccessListener {
-                Log.d("Uber", "Added the job to zimmerjm")
+                Log.d("Uber", "Added the job to $userid")
             }
 
             this.context

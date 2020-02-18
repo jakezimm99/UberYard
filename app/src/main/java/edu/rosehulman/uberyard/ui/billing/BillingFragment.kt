@@ -12,7 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import edu.rosehulman.uberyard.Job
 import edu.rosehulman.uberyard.R
 
-class BillingFragment : Fragment() {
+class BillingFragment(val userid: String) : Fragment() {
 
 
     override fun onCreateView(

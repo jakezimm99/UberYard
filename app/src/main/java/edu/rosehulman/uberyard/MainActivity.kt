@@ -25,7 +25,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.firebase.ui.auth.AuthUI
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.firebase.auth.FirebaseAuth
+import com.google.type.LatLng
 import edu.rosehulman.uberyard.ui.billing.BillingFragment
 import edu.rosehulman.uberyard.ui.home.HomeFragment
 import edu.rosehulman.uberyard.ui.jobhistory.JobHistoryFragment
@@ -89,7 +91,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
             Log.d("Uber", "$user")
             if (user != null) {
                 Log.d("Uber", "Main activity")
-                fragment = HomeFragment()
+                fragment = HomeFragment(user.uid)
             } else {
                 Log.d("Uber", "Log in activity")
                 fragment = LoginFragment()
@@ -107,8 +109,8 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
                     true
                 }
                 R.id.nav_home -> {
-                    fragment = HomeFragment()
                     if (auth.currentUser != null) {
+                        fragment = HomeFragment(auth.currentUser!!.uid)
                         val ft = supportFragmentManager.beginTransaction()
                         ft.replace(R.id.flContent, fragment)
                         ft.commit()
@@ -116,8 +118,8 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
                     true
                 }
                 R.id.nav_job_request -> {
-                    fragment = JobRequestFragment()
                     if(auth.currentUser != null) {
+                        fragment = JobRequestFragment(auth.currentUser!!.uid)
                         val ft = supportFragmentManager.beginTransaction()
                         ft.replace(R.id.flContent, fragment)
                         ft.commit()
@@ -125,8 +127,8 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
                     true
                 }
                 R.id.nav_job_history -> {
-                    fragment = JobHistoryFragment()
                     if(auth.currentUser != null) {
+                        fragment = JobHistoryFragment(auth.currentUser!!.uid)
                         val ft = supportFragmentManager.beginTransaction()
                         ft.replace(R.id.flContent, fragment)
                         ft.commit()
@@ -134,8 +136,8 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
                     true
                 }
                 R.id.nav_job_statuses -> {
-                    fragment = JobStatusesFragment()
                     if(auth.currentUser != null) {
+                        fragment = JobStatusesFragment(auth.currentUser!!.uid)
                         val ft = supportFragmentManager.beginTransaction()
                         ft.replace(R.id.flContent, fragment)
                         ft.commit()
@@ -143,8 +145,8 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
                     true
                 }
                 R.id.nav_settings -> {
-                    fragment = SettingsFragment()
                     if(auth.currentUser != null) {
+                        fragment = SettingsFragment(auth.currentUser!!.uid)
                         val ft = supportFragmentManager.beginTransaction()
                         ft.replace(R.id.flContent, fragment)
                         ft.commit()
@@ -152,8 +154,8 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
                     true
                 }
                 R.id.nav_billing -> {
-                    fragment = BillingFragment()
                     if(auth.currentUser != null) {
+                        fragment = BillingFragment(auth.currentUser!!.uid)
                         val ft = supportFragmentManager.beginTransaction()
                         ft.replace(R.id.flContent, fragment)
                         ft.commit()

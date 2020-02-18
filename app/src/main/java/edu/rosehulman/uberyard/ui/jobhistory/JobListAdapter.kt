@@ -12,14 +12,14 @@ import com.google.firebase.firestore.QuerySnapshot
 import edu.rosehulman.uberyard.Job
 import edu.rosehulman.uberyard.R
 
-class JobListAdapter(var context: Context) : RecyclerView.Adapter<JobViewHolder>() {
+class JobListAdapter(var context: Context, val userid : String) : RecyclerView.Adapter<JobViewHolder>() {
 
     var jobs = ArrayList<Job>()
 
 
     var jobsRef = FirebaseFirestore
         .getInstance()
-        .collection("users").document("zimmerjm")
+        .collection("users").document(userid)
         .collection("jobs")
 
     init {

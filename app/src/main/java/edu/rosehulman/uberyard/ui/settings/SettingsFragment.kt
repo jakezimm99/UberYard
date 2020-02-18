@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import edu.rosehulman.uberyard.R
 
-class SettingsFragment : Fragment() {
+class SettingsFragment(val userid: String) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

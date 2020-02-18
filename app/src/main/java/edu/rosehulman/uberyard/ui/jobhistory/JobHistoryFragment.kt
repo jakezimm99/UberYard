@@ -12,7 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import edu.rosehulman.uberyard.Job
 import edu.rosehulman.uberyard.R
 
-class JobHistoryFragment : Fragment() {
+class JobHistoryFragment(val userid : String) : Fragment() {
 
     var adapter: JobListAdapter? = null
 
@@ -27,7 +27,7 @@ class JobHistoryFragment : Fragment() {
     ): View? {
         val recyclerView =
             inflater.inflate(R.layout.fragment_job_history, container, false) as RecyclerView
-        adapter = JobListAdapter(context!!)
+        adapter = JobListAdapter(context!!, userid)
         Log.d("Uber", "${adapter!!.jobs.size} ")
 
         recyclerView.adapter = adapter
