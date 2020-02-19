@@ -19,7 +19,8 @@ data class Job(
     val jobAdress: String = "",
     val requestedCompletion: String = Calendar.getInstance().time.toString(),
     val jobType: String = "",
-    val total: Double = 0.00
+    val total: Double = 0.00,
+    var status: String = "incomplete"
 ) : Parcelable {
 
     @get:Exclude

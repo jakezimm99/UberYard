@@ -27,6 +27,8 @@ import androidx.fragment.app.Fragment
 import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
 import com.google.type.LatLng
 import edu.rosehulman.uberyard.ui.billing.BillingFragment
 import edu.rosehulman.uberyard.ui.home.HomeFragment
@@ -35,6 +37,7 @@ import edu.rosehulman.uberyard.ui.jobrequest.JobRequestFragment
 import edu.rosehulman.uberyard.ui.jobstatuses.JobStatusesFragment
 import edu.rosehulman.uberyard.ui.login.LoginFragment
 import edu.rosehulman.uberyard.ui.settings.SettingsFragment
+import kotlin.random.Random
 
 // Developed by Jake Zimmerman and Zach Thelen
 
@@ -49,22 +52,26 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
 
     private fun launchLogin() {
         val providers = arrayListOf(
-                AuthUI.IdpConfig.EmailBuilder().build(),
-                AuthUI.IdpConfig.PhoneBuilder().build(),
-                AuthUI.IdpConfig.GoogleBuilder().build()
+            AuthUI.IdpConfig.EmailBuilder().build(),
+            AuthUI.IdpConfig.PhoneBuilder().build(),
+            AuthUI.IdpConfig.GoogleBuilder().build()
         )
 
         startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setAvailableProviders(providers)
-                        .build(),
-                RC_SIGN_IN
+            AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(providers)
+                .build(),
+            RC_SIGN_IN
         )
     }
 
     val auth = FirebaseAuth.getInstance()
     lateinit var authListener: FirebaseAuth.AuthStateListener
+
+    val userRef = FirebaseFirestore
+        .getInstance()
+        .collection("users")
 
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -111,6 +118,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
                     val ft = supportFragmentManager.beginTransaction()
                     ft.replace(R.id.flContent, fragment)
                     ft.commit()
+                    drawerLayout.closeDrawers()
 
                     true
                 }
@@ -120,51 +128,62 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
                         val ft = supportFragmentManager.beginTransaction()
                         ft.replace(R.id.flContent, fragment)
                         ft.commit()
+                        drawerLayout.closeDrawers()
                     }
                     true
                 }
                 R.id.nav_job_request -> {
-                    if(auth.currentUser != null) {
+                    if (auth.currentUser != null) {
                         fragment = JobRequestFragment(auth.currentUser!!.uid)
                         val ft = supportFragmentManager.beginTransaction()
                         ft.replace(R.id.flContent, fragment)
                         ft.commit()
+                        drawerLayout.closeDrawers()
+
                     }
                     true
                 }
                 R.id.nav_job_history -> {
-                    if(auth.currentUser != null) {
+                    if (auth.currentUser != null) {
                         fragment = JobHistoryFragment(auth.currentUser!!.uid)
                         val ft = supportFragmentManager.beginTransaction()
                         ft.replace(R.id.flContent, fragment)
                         ft.commit()
+                        drawerLayout.closeDrawers()
+
                     }
                     true
                 }
                 R.id.nav_job_statuses -> {
-                    if(auth.currentUser != null) {
+                    if (auth.currentUser != null) {
                         fragment = JobStatusesFragment(auth.currentUser!!.uid)
                         val ft = supportFragmentManager.beginTransaction()
                         ft.replace(R.id.flContent, fragment)
                         ft.commit()
+                        drawerLayout.closeDrawers()
+
                     }
                     true
                 }
                 R.id.nav_settings -> {
-                    if(auth.currentUser != null) {
+                    if (auth.currentUser != null) {
                         fragment = SettingsFragment(auth.currentUser!!.uid)
                         val ft = supportFragmentManager.beginTransaction()
                         ft.replace(R.id.flContent, fragment)
                         ft.commit()
+                        drawerLayout.closeDrawers()
+
                     }
                     true
                 }
                 R.id.nav_billing -> {
-                    if(auth.currentUser != null) {
+                    if (auth.currentUser != null) {
                         fragment = BillingFragment(auth.currentUser!!.uid)
                         val ft = supportFragmentManager.beginTransaction()
                         ft.replace(R.id.flContent, fragment)
                         ft.commit()
+                        drawerLayout.closeDrawers()
+
                     }
                     true
                 }
@@ -189,7 +208,6 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
         Log.d("Uber", "About to call the listener method")
 
 
-
     }
 
     override fun onStart() {
@@ -201,15 +219,16 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
         super.onStop()
         auth.removeAuthStateListener(authListener)
     }
+
     override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<out String>,
-            grantResults: IntArray
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
     ) {
         if (requestCode == 17) {
             if (permissions.size == 1 &&
-                    permissions[0] == Manifest.permission.ACCESS_FINE_LOCATION &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED
+                permissions[0] == Manifest.permission.ACCESS_FINE_LOCATION &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED
             ) {
                 val home = supportFragmentManager.findFragmentById(R.id.nav_home) as HomeFragment
                 home.map!!.setMyLocationEnabled(true);
@@ -236,7 +255,9 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnLoginButtonPressedList
                 true
             }
             R.id.nav_button -> {
-                if (!drawerLayout.isDrawerOpen(GravityCompat.START)) drawerLayout.openDrawer(GravityCompat.START);
+                if (!drawerLayout.isDrawerOpen(GravityCompat.START)) drawerLayout.openDrawer(
+                    GravityCompat.START
+                );
                 else drawerLayout.closeDrawer(GravityCompat.END);
                 true
             }

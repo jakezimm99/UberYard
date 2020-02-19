@@ -31,7 +31,7 @@ class HomeFragment(val userid: String) : Fragment(), OnMapReadyCallback {
 
     var locations = FirebaseFirestore
         .getInstance()
-        .collection("users").get()
+        .collection("users")
 
     var myLocationRef = FirebaseFirestore
         .getInstance()
@@ -40,7 +40,7 @@ class HomeFragment(val userid: String) : Fragment(), OnMapReadyCallback {
     var map: GoogleMap? = null
     var list: ArrayList<com.google.android.gms.maps.model.LatLng> = arrayListOf()
 
-    var mapView: MapView? = null
+
     override fun onMapReady(map: GoogleMap?) {
         Log.d("Uber", "Here it is! Map finished")
         this.map = map
@@ -57,7 +57,7 @@ class HomeFragment(val userid: String) : Fragment(), OnMapReadyCallback {
             )
         }
         map?.uiSettings?.isMyLocationButtonEnabled = true
-        map!!.animateCamera(
+        map!!.moveCamera(
             CameraUpdateFactory.newLatLngZoom(
                 com.google.android.gms.maps.model.LatLng(
                     39.483693,
@@ -65,21 +65,11 @@ class HomeFragment(val userid: String) : Fragment(), OnMapReadyCallback {
                 ), 12F
             )
         )
-        for (item in list) {
-            map!!.addMarker(
-                MarkerOptions()
-                    .position(item)
-                    .anchor(0.5F, 0.5F)
-                    .title("Nearby User")
-                    .snippet("User")
-                    .icon(
-                        bitmapDescriptorFromVector(
-                            context!!,
-                            R.drawable.ic_person_pin_circle_black_24dp
-                        )
-                    )
-            )
-        }
+
+
+        Log.d("Uber", "${list.size}")
+
+
     }
 
     private fun bitmapDescriptorFromVector(context: Context, @DrawableRes vectorDrawableResourceId: Int): BitmapDescriptor {
@@ -130,19 +120,46 @@ class HomeFragment(val userid: String) : Fragment(), OnMapReadyCallback {
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-
-        locations.addOnSuccessListener {
-            it.forEach { item: QueryDocumentSnapshot? ->
-                var temp = item?.getGeoPoint("location")
-                var lattemp = temp?.latitude
-                var longtemp = temp?.longitude
-                list.add(com.google.android.gms.maps.model.LatLng(lattemp!!, longtemp!!))
-
+        locations.get().addOnCompleteListener {
+            if (it.isSuccessful) {
+                it.result?.forEach {
+                    Log.d("Uber", "here once")
+                    var temp = it.getGeoPoint("location")
+                    var lattemp = temp?.latitude
+                    var longtemp = temp?.longitude
+                    list.add(com.google.android.gms.maps.model.LatLng(lattemp!!, longtemp!!))
+                }
+                addMarkers()
             }
 
+
+        }.addOnFailureListener { exception ->
+            Log.e("Uber", "$exception")
         }
+
+        Log.d("Uber", "${list.joinToString { latLng -> latLng.toString() }}")
+
         Log.d("Uber", "Map is being created.")
         return root
+    }
+
+    private fun addMarkers() {
+        for (item in list) {
+            Log.d("Uber", "${list.indexOf(item)}")
+            map?.addMarker(
+                MarkerOptions()
+                    .position(item)
+                    .anchor(0.5F, 0.5F)
+                    .title("Nearby User")
+                    .snippet("User ${list.indexOf(item)}")
+                    .icon(
+                        bitmapDescriptorFromVector(
+                            context!!,
+                            R.drawable.ic_person_pin_circle_black_24dp
+                        )
+                    )
+            )
+        }
     }
 
 

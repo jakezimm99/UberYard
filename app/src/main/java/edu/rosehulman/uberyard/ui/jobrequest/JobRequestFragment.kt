@@ -14,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
 import edu.rosehulman.uberyard.Job
 import edu.rosehulman.uberyard.R
+import kotlinx.android.synthetic.main.fragment_billing.view.*
 import kotlinx.android.synthetic.main.fragment_job_request.view.*
 import java.sql.Date
 import java.text.SimpleDateFormat
@@ -103,6 +104,8 @@ class JobRequestFragment(val userid: String) : Fragment() {
             val job = Job(username, contractorName, jobAddress, date, jobType, total)
             jobsRef.add(job).addOnSuccessListener {
                 Log.d("Uber", "Added the job to $userid")
+                root.address_text.text.clear()
+                root.requested_completion.text.clear()
             }
 
             this.context
