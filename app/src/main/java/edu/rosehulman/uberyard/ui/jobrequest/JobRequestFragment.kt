@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentChange
@@ -20,6 +22,11 @@ import kotlinx.android.synthetic.main.fragment_billing.view.*
 import kotlinx.android.synthetic.main.fragment_job_request.view.*
 import java.sql.Date
 import java.text.SimpleDateFormat
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.view.inputmethod.EditorInfo
+import androidx.core.content.ContextCompat.getSystemService
+
+
 
 class JobRequestFragment(val userid: String) : Fragment() {
     val list: Array<String> =
@@ -111,6 +118,7 @@ class JobRequestFragment(val userid: String) : Fragment() {
                     })
                     .setActionTextColor(Color.GREEN)
                     .show()
+                root.findViewById<EditText>(R.id.requested_completion).onEditorAction(EditorInfo.IME_ACTION_DONE)
             }
 
 
