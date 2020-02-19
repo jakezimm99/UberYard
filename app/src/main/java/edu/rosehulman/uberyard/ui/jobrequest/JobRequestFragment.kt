@@ -1,5 +1,6 @@
 package edu.rosehulman.uberyard.ui.jobrequest
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -49,8 +51,8 @@ class JobRequestFragment(val userid: String) : Fragment() {
                 id: Long
             ) {
                 val selected = parent!!.getItemAtPosition(position).toString()
-                Log.d("Uber" , selected)
-                if(selected.equals(list[0])) {
+                Log.d("Uber", selected)
+                if (selected.equals(list[0])) {
                     root.findViewById<TextView>(R.id.subtotal_amount).text = "$35.00"
                     root.findViewById<TextView>(R.id.total_amount).text = "$40.00"
                 } else if (selected.equals(list[1])) {
@@ -64,12 +66,9 @@ class JobRequestFragment(val userid: String) : Fragment() {
                     root.findViewById<TextView>(R.id.total_amount).text = "$55.00"
                 }
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
-
             }
         }
-        
         val button = root.findViewById<Button>(R.id.request_job)
         button.setOnClickListener {
             var username = userid
@@ -104,9 +103,17 @@ class JobRequestFragment(val userid: String) : Fragment() {
             val job = Job(username, contractorName, jobAddress, date, jobType, total)
             jobsRef.add(job).addOnSuccessListener {
                 Log.d("Uber", "Added the job to $userid")
-                root.address_text.text.clear()
-                root.requested_completion.text.clear()
+                root.findViewById<EditText>(R.id.job_address).setText("")
+                root.findViewById<EditText>(R.id.requested_completion).setText("")
+                Snackbar.make(root, "Job Successfully Added!", Snackbar.LENGTH_SHORT)
+                    .setAction("CLOSE", View.OnClickListener {
+
+                    })
+                    .setActionTextColor(Color.GREEN)
+                    .show()
             }
+
+
 
             this.context
         }
